@@ -2,14 +2,18 @@ import React, { useState } from "react";
 import MovieList from "./components/MovieList";
 import Filter from "./components/Filter ( title, rate)";
 import MovieCard from "./components/MovieCard";
-import { Route, Routes } from 'react-router-dom';
+
+import { Routes, Route } from "react-router-dom";
 import MovieDetails from "./components/MovieDetails";
 
 
 const App = () => {
   const [movies, setMovies] = useState([
+  
     {
+      id: 1,
       title: "Final Fantasy XV",
+      date: "2019-12-20",
       description:
         "Final Fantasy XV, annoncé originellement sous le titre Final Fantasy Versus XIII, est un jeu vidéo de la célèbre série Final Fantasy, développé et édité par Square Enix, sorti le 29 novembre 2016",
       posterURL:
@@ -19,6 +23,7 @@ const App = () => {
          
     },
     {
+      id: 2,
       title: "Final Fantasy Spirits Within",
       description:
         "C'est un film américano-japonais de Hironobu Sakaguchi (créateur de la série de jeux vidéo Final Fantasy) et Motonori Sakakibara, sorti le 15 août 2001. ",
@@ -54,17 +59,20 @@ const App = () => {
   });
   return (
     <div className="app">
-      <h1>Movie App</h1>
+
       <Routes>
-        <Route path="/MovieDetails" element={<MovieDetails />} />
-      </Routes>
-      <Filter
+        <Route path="/" element={<div> <Filter
         title={titleFilter}
         rating={ratingFilter}
         onTitleChange={handleTitleChange}
         onRatingChange={handleRatingChange}
       />
       <MovieList movies={filteredMovies} />
+      </div>
+      } />
+      <Route path="/details/:idmovie" element={<MovieDetails movies={movies}/>} />
+      </Routes>
+     
     </div>
   );
 };
